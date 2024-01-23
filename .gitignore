@@ -33,3 +33,5 @@ shrinkwrap.yaml
 .pnp.js
 .pnpm-state.json
 *.tgz
+
+.husky/
