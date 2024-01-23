@@ -12,6 +12,7 @@ module.exports = {
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: [
+    'prettier',
     'react',
     'react-refresh'
   ],
@@ -21,5 +22,6 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    '@typescript-eslint/space-before-function-paren': 'off',
   },
 }
