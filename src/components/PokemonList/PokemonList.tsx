@@ -6,7 +6,7 @@ import { sentenceCase } from 'change-case';
 
 type PokemonApiItem = { name: string; url: string };
 
-const { VITE_BASE_URL } = import.meta.env;
+const { VITE_BASE_URL, VITE_IMG_BASE_URL } = import.meta.env;
 
 const fetchPokemonData = async (): Promise<Pokemon[]> => {
   try {
@@ -14,7 +14,7 @@ const fetchPokemonData = async (): Promise<Pokemon[]> => {
     const data = await response.json();
     return data.results.map((item: PokemonApiItem, index: number) => ({
       name: item.name,
-      imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`,
+      imageUrl: `${VITE_IMG_BASE_URL}/${index + 1}.png`,
       number: index + 1,
     })) as Pokemon[];
   } catch (error) {
