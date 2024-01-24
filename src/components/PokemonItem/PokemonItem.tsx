@@ -1,4 +1,4 @@
-import './PokemonItem.css';
+import './PokemonItem.scss';
 
 interface PokemonItemProps {
   name: string;

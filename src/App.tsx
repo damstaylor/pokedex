@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import PokemonList from './components/PokemonList/PokemonList.tsx';
 
 const App: React.FC = () => {
