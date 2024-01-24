@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './PokemonList.scss';
-import Pokemon from '../../interfaces/Pokemon.ts';
-import PokemonItem from '../../components/PokemonItem/PokemonItem.tsx';
+import Pokemon from '@/interfaces/Pokemon.ts';
+import PokemonItem from '@/components/PokemonItem/PokemonItem.tsx';
 import { sentenceCase } from 'change-case';
 
 type PokemonApiItem = { name: string; url: string };
