@@ -1,0 +1,9 @@
+.pokemon-list {
+  display: flex;
+  justify-content: center;
+}
+
+.pokemon-list ul li {
+  width: 156px;
+  aspect-ratio: 1/1;
+}

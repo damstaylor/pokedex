@@ -1,0 +1,12 @@
+.pokemon-item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 8px;
+  padding: 8px;
+  text-align: center;
+}
+
+.pokemon-item img {
+  max-width: 96px;
+  aspect-ratio: 1/1;
+}
