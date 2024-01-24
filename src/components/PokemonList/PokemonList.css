@@ -3,7 +3,7 @@
   justify-content: center;
 }
 
-.container {
+.pokemon-list__container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 16px;

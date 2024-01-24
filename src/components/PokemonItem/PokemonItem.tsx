@@ -12,10 +12,12 @@ const PokemonItem: React.FC<PokemonItemProps> = ({
   number,
 }) => (
   <li className="pokemon-item">
-    <div className="pokemon-item__frame">
+    <div className="pokemon-item__img">
+      <img src={imageUrl} alt={name + '_image'} />
+    </div>
+    <div className="pokemon-item__info">
       <h5>{`#${number.toString().padStart(3, '0')}`}</h5>
       <h4>{name}</h4>
-      <img src={imageUrl} alt={name + '_image'} />
     </div>
   </li>
 );

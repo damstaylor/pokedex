@@ -2,13 +2,15 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 8px;
-}
-
-.pokemon-item__frame {
   aspect-ratio: 1/1;
 }
 
-.pokemon-item img {
-  max-width: 100%;
-  height: auto;
+.pokemon-item__img {
+  display: flex;
+  justify-content: center;
+
+  img {
+    max-width: 96px;
+    height: auto;
+  }
 }
