@@ -36,7 +36,7 @@ const PokemonList: React.FC = () => {
 
   return (
     <div className="pokemon-list">
-      <ul>
+      <ul className="container">
         {pokemonList.map((pokemon) => (
           <PokemonItem
             key={pokemon.name}
