@@ -6,11 +6,11 @@ import { sentenceCase } from 'change-case';
 
 type PokemonApiItem = { name: string; url: string };
 
+const { VITE_BASE_URL } = import.meta.env;
+
 const fetchPokemonData = async (): Promise<Pokemon[]> => {
   try {
-    const response = await fetch(
-      'https://pokeapi.co/api/v2/pokemon?limit=151&language=fr',
-    );
+    const response = await fetch(`${VITE_BASE_URL}/pokemon?limit=151&language=fr`);
     const data = await response.json();
     return data.results.map((item: PokemonApiItem, index: number) => ({
       name: item.name,

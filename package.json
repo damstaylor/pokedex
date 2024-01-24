@@ -14,6 +14,7 @@
     "commitlint": "commitlint --edit"
   },
   "dependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
     "change-case": "^5.4.2",
     "core-js": "^3.35.1",
     "framer-motion": "^10.18.0",
