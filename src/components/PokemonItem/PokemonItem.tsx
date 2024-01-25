@@ -17,7 +17,7 @@ const PokemonItem: React.FC<PokemonItemProps> = ({
     </div>
     <div className="pokemon-item__info">
       <h5>{`#${number.toString().padStart(3, '0')}`}</h5>
-      <h4>{name}</h4>
+      <h4 className="text-overflow-ellipsis">{name}</h4>
     </div>
   </li>
 );
