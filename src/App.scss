@@ -16,12 +16,13 @@
   width: 100vw;
 }
 
-.sticky-header {
+.header {
   background-color: #313131;
   padding: 16px;
   text-align: center;
-  position: sticky;
+  position: absolute;
   top: 0;
+  width: 100%;
 }
 
 main {

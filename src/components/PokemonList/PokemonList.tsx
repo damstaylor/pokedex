@@ -14,7 +14,7 @@ const PokemonList: React.FC = () => {
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
 
   const fetchPokemonData = async (page: number): Promise<Pokemon[]> => {
-    const limit = 50;
+    const limit = 40;
     const offset = (page - 1) * limit;
     try {
       const response = await fetch(`${VITE_BASE_URL}/pokemon/?limit=${limit}&offset=${offset}`);
@@ -51,9 +51,10 @@ const PokemonList: React.FC = () => {
         dataLength={pokemonList.length}
         next={loadMorePokemon}
         hasMore={true}
-        loader={<><br /><p>Loading...</p><br /></>}
+        loader={<>
+        <p>Loading...</p></>}
         endMessage={<p>No more Pokémon to load.</p>}
-        height={'calc(90lvh)'}
+        height={'calc(100lvh - 88px)'}
       >
         <ul className="pokemon-list__container">
           {pokemonList.map(pokemon => (
