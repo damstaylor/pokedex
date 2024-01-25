@@ -1,9 +1,10 @@
+import './PokemonList.scss';
 import { useState, useEffect } from 'react';
 import { sentenceCase } from 'change-case';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import './PokemonList.scss';
 import Pokemon from '@/interfaces/Pokemon.ts';
 import PokemonItem from '@/components/PokemonItem/PokemonItem.tsx';
+import Spinner from '@/components/Spinner/Spinner.tsx';
 
 type PokemonApiItem = { name: string; url: string; };
 
@@ -51,9 +52,9 @@ const PokemonList: React.FC = () => {
         dataLength={pokemonList.length}
         next={loadMorePokemon}
         hasMore={true}
-        loader={<>
-        <p>Loading...</p></>}
+        loader={<Spinner />}
         endMessage={<p>No more Pokémon to load.</p>}
+        scrollThreshold={1}
         height={'calc(100lvh - 88px)'}
       >
         <ul className="pokemon-list__container">
