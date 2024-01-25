@@ -1,6 +1,8 @@
 .pokemon-list {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  height: 100%;
 }
 
 .pokemon-list__container {
@@ -8,6 +10,5 @@
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 16px;
   justify-content: center;
-  width: 100%;
   margin: 16px;
 }
