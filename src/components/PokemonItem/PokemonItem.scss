@@ -3,14 +3,19 @@
   border-radius: 8px;
   padding: 8px;
   aspect-ratio: 1/1;
-}
 
-.pokemon-item__img {
-  display: flex;
-  justify-content: center;
-
-  img {
-    max-width: 96px;
-    height: auto;
+  &:hover {
+    border-color: #3498db;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .pokemon-item__img {
+    display: flex;
+    justify-content: center;
+  
+    img {
+      max-width: 96px;
+      height: auto;
+    }
   }
 }

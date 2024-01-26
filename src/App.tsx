@@ -1,4 +1,5 @@
 import './App.scss';
+import { Outlet } from 'react-router-dom';
 import PokemonList from './components/PokemonList/PokemonList.tsx';
 
 const App: React.FC = () => {
@@ -10,6 +11,7 @@ const App: React.FC = () => {
       <main>
         <PokemonList />
       </main>
+      <Outlet />
     </div>
   );
 };
