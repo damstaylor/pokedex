@@ -3,7 +3,7 @@ import { sentenceCase } from 'change-case';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Spinner from '../../components/Spinner/Spinner';
+import Spinner from '@/components/Spinner/Spinner';
 
 const PokemonDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -12,6 +12,7 @@ const PokemonDetails: React.FC = () => {
   const [details, setDetails] = useState<any>(null);
   const [speciesDetails, setSpeciesDetails] = useState<any>(null);
   const [isModalOpen, setModalOpen] = useState(true);
+  const imageUrl: string = details?.sprites?.other?.home.front_default || '';
   const { VITE_BASE_URL } = import.meta.env;
 
   const fetchPokemonDetails = async (pokemonId: string) => {
@@ -68,31 +69,27 @@ const PokemonDetails: React.FC = () => {
     navigate(`/pokemon/${Number(id) + 1}`);
   };
 
-  const imageUrl: string = details?.sprites?.other?.home.front_default || '';
   return (
     <div className={`pokemon-details ${isModalOpen ? 'open' : 'closed'}`} onClick={handleOutsideClick}>
-      {details && imageUrl ? (
-        <div className="pokemon-details__container">
-          <button className="close-button" onClick={closeModal}>
-            ×
-          </button>
-          <div className="pokemon-details__content" onClick={handleModalClick}>
-            <div>
+      <div className="pokemon-details__container">
+        <a className="close-button" onClick={closeModal}>×</a>
+        <div className="pokemon-details__content" onClick={handleModalClick}>
+          {details && speciesDetails ? (
+            <>
               <h2>#{id} {sentenceCase(details.name)}</h2>
               <div className="pokemon-details__image-container">
-                <a className={Number(id) === 1 ? 'disabled' : ''} onClick={Number(id) !== 1 ? onPrevious : undefined}>
-                  <FontAwesomeIcon icon="angle-left" style={{ fontSize: '48px' }} />
+                <a className={`arrow ${Number(id) === 1 && 'disabled'}`} onClick={onPrevious}>
+                  <FontAwesomeIcon icon="angle-left" />
                 </a>
-                <img src={imageUrl} alt={details.name} />
-                <a className={Number(id) === ID_NUM_MAX ? 'disabled' : ''} onClick={onNext}>
-                  <FontAwesomeIcon icon="angle-right" style={{ fontSize: '48px' }} />
+                <img src={imageUrl || 'https://assets.stickpng.com/images/580b57fcd9996e24bc43c329.png'} alt={details.name} />
+                <a className={`arrow ${Number(id) === ID_NUM_MAX && 'disabled'}`} onClick={onNext}>
+                  <FontAwesomeIcon icon="angle-right" />
                 </a>
               </div>
-              <h3>Types: {details.types.map((t: { type: { name: string; }; }) => t.type.name).join(', ')}</h3>
-            </div>
-          </div>
+            </>
+          ) : <Spinner />}
         </div>
-      ) : <Spinner />}
+      </div>
     </div>
   );
 };
