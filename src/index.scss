@@ -27,8 +27,18 @@ ul li {
 }
 
 a {
+  cursor: pointer;
   color: inherit;
   text-decoration: inherit;
+
+  &.disabled {
+    cursor: default;
+    color: grey;
+  }
+
+  &:hover:not(.disabled) {
+    color: #3498db;
+  }
 }
 
 body {

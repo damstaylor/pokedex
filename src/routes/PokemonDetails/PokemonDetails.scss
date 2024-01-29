@@ -17,6 +17,18 @@
     visibility: visible;
   }
 
+  .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 24px;
+    margin-bottom: 10px;
+    padding: 0;
+  }
+
   .pokemon-details__content {
     position: relative;
     padding: 20px;
@@ -27,20 +39,19 @@
     background-color: #010101;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
-    .close-button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-size: 24px;
-      margin-bottom: 10px;
-      padding: 0;
-    }
 
     img {
       margin: 16px;
-    } 
+    }
+  }
+
+  .pokemon-details__image-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    a {
+      min-width: 32px;
+    }
   }
 }
