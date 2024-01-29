@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Spinner from '@/components/Spinner/Spinner';
+import TypePill from '@/components/TypePill/TypePill';
 
 const PokemonDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,6 +17,7 @@ const PokemonDetails: React.FC = () => {
   const [speciesDetails, setSpeciesDetails] = useState<any>(null);
   const [isModalOpen, setModalOpen] = useState(true);
   const imageUrl: string = details?.sprites?.other?.home.front_default || '';
+  const defaultImageUrl = 'https://assets.stickpng.com/images/580b57fcd9996e24bc43c329.png';
   const { VITE_BASE_URL } = import.meta.env;
 
   const fetchPokemonDetails = async (pokemonId: string) => {
@@ -94,7 +96,14 @@ const PokemonDetails: React.FC = () => {
                 <a className="arrow" onClick={onPrevious}>
                   <FontAwesomeIcon icon="angle-left" />
                 </a>
-                <img src={imageUrl || 'https://assets.stickpng.com/images/580b57fcd9996e24bc43c329.png'} alt={details.name} />
+                <div className="pokemon-details__data">
+                  <img src={imageUrl || defaultImageUrl } alt={details.name} />
+                  <div className="pokemon-details__types">
+                    {details.types.map((t: { type: { name: string; }; }) => (
+                      <TypePill text={t.type.name} key={t.type.name} />
+                      ))}
+                  </div>
+                </div>
                 <a className="arrow" onClick={onNext}>
                   <FontAwesomeIcon icon="angle-right" />
                 </a>

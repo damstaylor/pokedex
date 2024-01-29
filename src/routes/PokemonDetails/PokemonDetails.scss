@@ -64,7 +64,7 @@
       min-width: 32px;
       height: 100%;
       padding: 0 32px;
-      background-color: lightblue;
+      background-color: lightcoral;
 
       svg {
         font-size: 64px;
@@ -72,8 +72,15 @@
     }
   }
 
+  .pokemon-details__data {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
   .pokemon-details__types {
     display: flex;
     justify-content: center;
+    margin: 16px 0;
   }
 }

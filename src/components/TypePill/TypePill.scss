@@ -1,0 +1,39 @@
+.typepill {
+  text-align: center;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: 0 4px;
+  padding: 0 16px;
+
+  $type-colors: (
+    bug: #a0a541 #d9f9cc,
+    dark: #7d6c5e #d9cccb,
+    dragon: #8952e5 #d9ccf9,
+    electric: #f1ca30 #f9f5cc,
+    fairy: #d783ad #f9ccd9,
+    fighting: #ae4a40 #f9dfcc,
+    fire: #e0803a #f9d9cc,
+    flying: #7e6c9a #e1d9f9,
+    ghost: #7c5e8b #d9ccf9,
+    grass: #71a84c #d9f9cc,
+    ground: #d4b55e #fbe8cc,
+    ice: #8adbd7 #d9f4f9,
+    normal: #8a8a59 #f4f4dc,
+    poison: #8a3e89 #f4d9f4,
+    psychic: #f65778 #f9ccd9,
+    rock: #b4913e #f4e1d3,
+    shadow: #52402f #ccd9cb,
+    steel: #8a8aa4 #d9d9e8,
+    unknown: #678f70 #ccd9cc,
+    water: #5679b9 #ccd9f9,
+  );
+  
+  @each $type, $colors in $type-colors {
+    &.#{$type} {
+      color: nth($colors, 1);
+      background-color: nth($colors, 2);
+    }
+  }  
+}
