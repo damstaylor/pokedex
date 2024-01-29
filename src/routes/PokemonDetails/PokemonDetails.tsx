@@ -1,5 +1,5 @@
 import './PokemonDetails.scss';
-import { sentenceCase } from 'change-case';
+import { capitalCase } from 'change-case';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -91,7 +91,7 @@ const PokemonDetails: React.FC = () => {
         <div className="pokemon-details__content" onClick={handleModalClick}>
           {details ? (
             <>
-              <h2>#{id} {sentenceCase(details.name)}</h2>
+              <h2>#{id} {capitalCase(details.name)}</h2>
               <div className="pokemon-details__image-container">
                 <a className="arrow" onClick={onPrevious}>
                   <FontAwesomeIcon icon="angle-left" />

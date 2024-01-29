@@ -1,6 +1,6 @@
 import './PokemonList.scss';
 import { useState, useEffect } from 'react';
-import { sentenceCase } from 'change-case';
+import { capitalCase } from 'change-case';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Pokemon from '@/interfaces/Pokemon.ts';
 import PokemonItem from '@/components/PokemonItem/PokemonItem.tsx';
@@ -61,7 +61,7 @@ const PokemonList: React.FC = () => {
           {pokemonList.map(pokemon => (
             <PokemonItem
               key={`${pokemon.name}-${pokemon.number}`}
-              name={sentenceCase(pokemon.name)}
+              name={capitalCase(pokemon.name)}
               imageUrl={pokemon.imageUrl}
               number={pokemon.number}
             />
