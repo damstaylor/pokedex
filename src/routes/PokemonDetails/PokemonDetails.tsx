@@ -8,7 +8,10 @@ import Spinner from '@/components/Spinner/Spinner';
 const PokemonDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const ID_NUM_MAX = 1302;
+  const ID_NUM_MIN = 1;
+  const ID_NUM_MAX = 1025;
+  const ID_SPE_MIN = 10001;
+  const ID_SPE_MAX = 10277;
   const [details, setDetails] = useState<any>(null);
   const [speciesDetails, setSpeciesDetails] = useState<any>(null);
   const [isModalOpen, setModalOpen] = useState(true);
@@ -58,12 +61,22 @@ const PokemonDetails: React.FC = () => {
   };
   const onPrevious = () => {
     if (Number(id) === 1) {
+      navigate(`/pokemon/${ID_SPE_MAX}`);
+      return;
+    }
+    if (Number(id) === ID_SPE_MIN) {
+      navigate(`/pokemon/${ID_NUM_MAX}`);
       return;
     }
     navigate(`/pokemon/${Number(id) - 1}`);
   };
   const onNext = () => {
     if (Number(id) === ID_NUM_MAX) {
+      navigate(`/pokemon/${ID_SPE_MIN}`);
+      return;
+    }
+    if (Number(id) === ID_SPE_MAX) {
+      navigate(`/pokemon/${ID_NUM_MIN}`);
       return;
     }
     navigate(`/pokemon/${Number(id) + 1}`);
@@ -74,15 +87,15 @@ const PokemonDetails: React.FC = () => {
       <div className="pokemon-details__container">
         <a className="close-button" onClick={closeModal}>×</a>
         <div className="pokemon-details__content" onClick={handleModalClick}>
-          {details && speciesDetails ? (
+          {details ? (
             <>
               <h2>#{id} {sentenceCase(details.name)}</h2>
               <div className="pokemon-details__image-container">
-                <a className={`arrow ${Number(id) === 1 && 'disabled'}`} onClick={onPrevious}>
+                <a className="arrow" onClick={onPrevious}>
                   <FontAwesomeIcon icon="angle-left" />
                 </a>
                 <img src={imageUrl || 'https://assets.stickpng.com/images/580b57fcd9996e24bc43c329.png'} alt={details.name} />
-                <a className={`arrow ${Number(id) === ID_NUM_MAX && 'disabled'}`} onClick={onNext}>
+                <a className="arrow" onClick={onNext}>
                   <FontAwesomeIcon icon="angle-right" />
                 </a>
               </div>
