@@ -1,4 +1,4 @@
-import './Spinner.scss'; // Assurez-vous de créer le fichier CSS correspondant
+import './Spinner.scss';
 
 const Spinner: React.FC = () => {
   return (
