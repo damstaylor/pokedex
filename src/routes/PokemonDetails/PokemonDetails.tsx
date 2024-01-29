@@ -1,10 +1,11 @@
 import './PokemonDetails.scss';
 import { capitalCase } from 'change-case';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Spinner from '@/components/Spinner/Spinner';
-import TypePill from '@/components/TypePill/TypePill';
+import fetchData from '@/services/fetchData.ts';
+import TypePill from '@/components/TypePill/TypePill.tsx';
+import Spinner from '@/components/Spinner/Spinner.tsx';
 
 const PokemonDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,26 +19,17 @@ const PokemonDetails: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(true);
   const imageUrl: string = details?.sprites?.other?.home.front_default || '';
   const defaultImageUrl = 'https://assets.stickpng.com/images/580b57fcd9996e24bc43c329.png';
-  const { VITE_BASE_URL } = import.meta.env;
 
   const fetchPokemonDetails = async (pokemonId: string) => {
-    try {
-      const response = await fetch(`${VITE_BASE_URL}/pokemon/${pokemonId}`);
-      const data = await response.json();
-      console.log(data);
-      setDetails(data);
-    } catch (error) {
-      console.error('Error fetching Pokemon details:', error);
+    const results = await fetchData(`pokemon/${pokemonId}`);
+    if (results !== undefined) {
+      setDetails(results);
     }
   };
   const fetchPokemonSpeciesDetails = async (pokemonId: string) => {
-    try {
-      const response = await fetch(`${VITE_BASE_URL}/pokemon-species/${pokemonId}`);
-      const data = await response.json();
-      console.log(data);
-      setSpeciesDetails(data);
-    } catch (error) {
-      console.error('Error fetching Pokemon species details:', error);
+    const results = await fetchData(`pokemon-species/${pokemonId}`);
+    if (results !== undefined) {
+      setSpeciesDetails(results);
     }
   };
   const fetchAllPokemonData = (pokemonId: string) => {
