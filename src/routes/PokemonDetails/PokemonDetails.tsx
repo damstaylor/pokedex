@@ -7,6 +7,7 @@ import fetchData from '@/services/fetchData.ts';
 import TypePill from '@/components/TypePill/TypePill.tsx';
 import Spinner from '@/components/Spinner/Spinner.tsx';
 import ImageSlider from '@/components/ImageSlider/ImageSlider';
+import Stats from '@/components/Stats/Stats';
 
 type ImageVariantsItem = {
   back_default: string;
@@ -35,6 +36,7 @@ const PokemonDetails: React.FC = () => {
   const defaultSprites = spritesObject ? Object.values(spritesObject).filter(val => typeof val === 'string') : [];
   const otherImagesObjects: ImageVariantsItem[] = spritesObject && spritesObject.other ? Object.values(spritesObject.other) : [];
   const imageUrls: string[] = otherImagesObjects.map((o) => o.front_default).filter(x => !!x);
+  const stats = details ? details.stats.map((stat: any) => ({ label: capitalCase(stat.stat.name), value: stat.base_stat })) : [];
 
   const fetchPokemonDetails = async (pokemonId: string) => {
     const results = await fetchData(`pokemon/${pokemonId}`);
@@ -132,9 +134,14 @@ const PokemonDetails: React.FC = () => {
                       <TypePill text={t.type.name} key={t.type.name} />
                       ))}
                   </div>
-                  <h3>General info</h3>
-                  <p>Height: {formatDmHeight(details.height)}</p>
-                  <p>Weight: {formatHgWeight(details.weight)}</p>
+                  <div className="pokemon-details__section">
+                    <h3>General info</h3>
+                    <p>Height: {formatDmHeight(details.height)}</p>
+                    <p>Weight: {formatHgWeight(details.weight)}</p>
+                  </div>
+                  <div className="pokemon-details__section">
+                    <Stats stats={stats} />
+                  </div>
                 </div>
                 <a className="arrow" onClick={navigateToNext}>
                   <FontAwesomeIcon icon="angle-right" />
