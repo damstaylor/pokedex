@@ -74,6 +74,14 @@ const PokemonDetails: React.FC = () => {
         break;
     }
   };
+  function formatDmHeight(heightInDm: number): string {
+    const heightInM = heightInDm / 10;
+    return heightInM >= 1 ? `${heightInM.toFixed(1)} m` : `${(heightInM * 10).toFixed(1)} cm`;
+  }
+  function formatHgWeight(weightInHg: number): string {
+    const weightInKg = weightInHg / 10;
+    return weightInKg >= 1 ? `${weightInKg.toFixed(1)} kg` : `${(weightInKg * 100).toFixed(1)} g`;
+  }
   const navigateToPrevious = () => {
     let newId;
     if (numId === ID_NUM_MIN) {
@@ -124,6 +132,9 @@ const PokemonDetails: React.FC = () => {
                       <TypePill text={t.type.name} key={t.type.name} />
                       ))}
                   </div>
+                  <h3>General info</h3>
+                  <p>Height: {formatDmHeight(details.height)}</p>
+                  <p>Weight: {formatHgWeight(details.weight)}</p>
                 </div>
                 <a className="arrow" onClick={navigateToNext}>
                   <FontAwesomeIcon icon="angle-right" />
