@@ -42,6 +42,7 @@
         border: 2px solid transparent;
         object-fit: scale-down;
         padding: 2px;
+        user-select: none;
 
         &.selected {
           border-color: #3498db;
