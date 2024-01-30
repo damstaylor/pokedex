@@ -69,12 +69,6 @@ const PokemonDetails: React.FC = () => {
   const handleOutsideClick = () => {
     closeModal();
   };
-  const onPrevious = () => {
-    if (Number(id) === 1) {
-      navigate(`/pokemon/${ID_SPE_MAX}`);
-      return;
-    }
-  };
   const navigateToPrevious = () => {
     let newId;
     if (numId === ID_NUM_MIN) {
@@ -106,7 +100,7 @@ const PokemonDetails: React.FC = () => {
           {details ? (
             <>
               <h2>#{id} {capitalCase(details.name)}</h2>
-              <div className="pokemon-details__image-container">
+              <div className="pokemon-details__data-container">
                 <a className="arrow" onClick={navigateToPrevious}>
                   <FontAwesomeIcon icon="angle-left" />
                 </a>
