@@ -21,6 +21,7 @@ type ImageVariantsItem = {
 
 const PokemonDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const numId = Number(id);
   const navigate = useNavigate();
   const ID_NUM_MIN = 1;
   const ID_NUM_MAX = 1025;
@@ -73,22 +74,28 @@ const PokemonDetails: React.FC = () => {
       navigate(`/pokemon/${ID_SPE_MAX}`);
       return;
     }
-    if (Number(id) === ID_SPE_MIN) {
-      navigate(`/pokemon/${ID_NUM_MAX}`);
-      return;
-    }
-    navigate(`/pokemon/${Number(id) - 1}`);
   };
-  const onNext = () => {
-    if (Number(id) === ID_NUM_MAX) {
-      navigate(`/pokemon/${ID_SPE_MIN}`);
-      return;
+  const navigateToPrevious = () => {
+    let newId;
+    if (numId === ID_NUM_MIN) {
+      newId = ID_SPE_MAX;
+    } else if (numId === ID_SPE_MIN) {
+      newId = ID_NUM_MAX;
+    } else {
+      newId = numId - 1;
     }
-    if (Number(id) === ID_SPE_MAX) {
-      navigate(`/pokemon/${ID_NUM_MIN}`);
-      return;
+    navigate(`/pokemon/${newId}`);
+  };
+  const navigateToNext = () => {
+    let newId;
+    if (numId === ID_NUM_MAX) {
+      newId = ID_SPE_MIN;
+    } else if (numId === ID_SPE_MAX) {
+      newId = ID_NUM_MIN;
+    } else {
+      newId = numId + 1;
     }
-    navigate(`/pokemon/${Number(id) + 1}`);
+    navigate(`/pokemon/${newId}`);
   };
 
   return (
@@ -100,7 +107,7 @@ const PokemonDetails: React.FC = () => {
             <>
               <h2>#{id} {capitalCase(details.name)}</h2>
               <div className="pokemon-details__image-container">
-                <a className="arrow" onClick={onPrevious}>
+                <a className="arrow" onClick={navigateToPrevious}>
                   <FontAwesomeIcon icon="angle-left" />
                 </a>
                 <div className="pokemon-details__data">
@@ -111,7 +118,7 @@ const PokemonDetails: React.FC = () => {
                       ))}
                   </div>
                 </div>
-                <a className="arrow" onClick={onNext}>
+                <a className="arrow" onClick={navigateToNext}>
                   <FontAwesomeIcon icon="angle-right" />
                 </a>
               </div>
