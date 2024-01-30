@@ -21,9 +21,12 @@
     align-items: center;
 
     .arrow {
+      display: flex;
+      align-items: center;
+      height: 100%;
       cursor: pointer;
       font-size: 24px;
-      margin: 0 16px;
+      padding: 0 8px;
     }
 
     .image-slider__previews {
@@ -37,6 +40,7 @@
         cursor: pointer;
         border: 2px solid transparent;
         object-fit: scale-down;
+        padding: 2px;
 
         &.selected {
           border-color: #3498db;
