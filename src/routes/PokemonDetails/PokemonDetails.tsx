@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import fetchData from '@/services/fetchData.ts';
 import TypePill from '@/components/TypePill/TypePill.tsx';
 import Spinner from '@/components/Spinner/Spinner.tsx';
+import ImageSlider from '@/components/ImageSlider/ImageSlider';
 
 const PokemonDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,6 +20,7 @@ const PokemonDetails: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(true);
   const imageUrl: string = details?.sprites?.other?.home.front_default || '';
   const defaultImageUrl = 'https://assets.stickpng.com/images/580b57fcd9996e24bc43c329.png';
+  const imageUrls: string[] = details && Object.values(details?.sprites?.other).map(o => o.front_default).filter(x => !!x) || [];
 
   const fetchPokemonDetails = async (pokemonId: string) => {
     const results = await fetchData(`pokemon/${pokemonId}`);
@@ -89,7 +91,7 @@ const PokemonDetails: React.FC = () => {
                   <FontAwesomeIcon icon="angle-left" />
                 </a>
                 <div className="pokemon-details__data">
-                  <img src={imageUrl || defaultImageUrl } alt={details.name} />
+                  <ImageSlider images={imageUrls} />
                   <div className="pokemon-details__types">
                     {details.types.map((t: { type: { name: string; }; }) => (
                       <TypePill text={t.type.name} key={t.type.name} />

@@ -78,6 +78,11 @@
     overflow-y: scroll;
   }
 
+  .image-slider {
+    height: 480px;
+    padding: 0 32px;
+  }
+
   .pokemon-details__types {
     display: flex;
     justify-content: center;
