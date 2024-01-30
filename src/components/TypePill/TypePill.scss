@@ -36,5 +36,9 @@
       color: nth($colors, 1);
       background-color: nth($colors, 2);
     }
-  }  
+  }
+
+  .typepill__text {
+    user-select: none;
+  }
 }

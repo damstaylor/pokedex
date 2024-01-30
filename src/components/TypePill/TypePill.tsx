@@ -7,7 +7,7 @@ interface TypePillProps {
 const TypePill: React.FC<TypePillProps> = ({ text }) => {
   return (
     <div className={`typepill ${text}`}>
-      <div>{text}</div>
+      <div className="typepill__text">{text}</div>
     </div>
   );
 };
