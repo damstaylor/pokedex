@@ -52,17 +52,6 @@ const PokemonDetails: React.FC = () => {
     fetchPokemonDetails(pokemonId);
     fetchPokemonSpeciesDetails(pokemonId);
   };
-
-  useEffect(() => {
-    if (id !== undefined) {
-      fetchAllPokemonData(id);
-    }
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [id]);
-
   const closeModal = () => {
     setModalOpen(false);
     navigate('/');
@@ -107,7 +96,15 @@ const PokemonDetails: React.FC = () => {
     }
     navigate(`/pokemon/${newId}`);
   };
-
+  useEffect(() => {
+    if (id !== undefined) {
+      fetchAllPokemonData(id);
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [id]);
   return (
     <div className={`pokemon-details ${isModalOpen ? 'open' : 'closed'}`} onClick={handleOutsideClick}>
       <div className="pokemon-details__container">
