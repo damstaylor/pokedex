@@ -8,6 +8,17 @@ import TypePill from '@/components/TypePill/TypePill.tsx';
 import Spinner from '@/components/Spinner/Spinner.tsx';
 import ImageSlider from '@/components/ImageSlider/ImageSlider';
 
+type ImageVariantsItem = {
+  back_default: string;
+  back_female: string;
+  back_shiny: string;
+  back_shiny_female: string;
+  front_default: string;
+  front_female: string;
+  front_shiny: string;
+  front_shiny_female: string;
+};
+
 const PokemonDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -18,9 +29,11 @@ const PokemonDetails: React.FC = () => {
   const [details, setDetails] = useState<any>(null);
   const [speciesDetails, setSpeciesDetails] = useState<any>(null);
   const [isModalOpen, setModalOpen] = useState(true);
-  const imageUrl: string = details?.sprites?.other?.home.front_default || '';
   const defaultImageUrl = 'https://assets.stickpng.com/images/580b57fcd9996e24bc43c329.png';
-  const imageUrls: string[] = details && Object.values(details?.sprites?.other).map(o => o.front_default).filter(x => !!x) || [];
+  const spritesObject = details ? details.sprites : null;
+  const defaultSprites = spritesObject ? Object.values(spritesObject).filter(val => typeof val === 'string') : [];
+  const otherImagesObjects: ImageVariantsItem[] = spritesObject && spritesObject.other ? Object.values(spritesObject.other) : [];
+  const imageUrls: string[] = otherImagesObjects.map((o) => o.front_default).filter(x => !!x);
 
   const fetchPokemonDetails = async (pokemonId: string) => {
     const results = await fetchData(`pokemon/${pokemonId}`);
