@@ -57,6 +57,10 @@ const PokemonDetails: React.FC = () => {
     if (id !== undefined) {
       fetchAllPokemonData(id);
     }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [id]);
 
   const closeModal = () => {
@@ -68,6 +72,18 @@ const PokemonDetails: React.FC = () => {
   };
   const handleOutsideClick = () => {
     closeModal();
+  };
+  const handleKeyDown = (event: KeyboardEvent) => {
+    switch (event.key) {
+      case 'ArrowLeft':
+        navigateToPrevious();
+        break;
+      case 'ArrowRight':
+        navigateToNext();
+        break;
+      default:
+        break;
+    }
   };
   const navigateToPrevious = () => {
     let newId;
