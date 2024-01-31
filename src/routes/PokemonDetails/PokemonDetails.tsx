@@ -1,6 +1,7 @@
 import './PokemonDetails.scss';
-import { capitalCase } from 'change-case';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { capitalCase } from 'change-case';
+import { motion, useAnimation } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import fetchData from '@/services/fetchData.ts';
@@ -26,13 +27,14 @@ const PokemonDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const numId = Number(id);
   const navigate = useNavigate();
+  const controls = useAnimation();
   const ID_NUM_MIN = 1;
   const ID_NUM_MAX = 1025;
   const ID_SPE_MIN = 10001;
   const ID_SPE_MAX = 10277;
   const [details, setDetails] = useState<any>(null);
   const [speciesDetails, setSpeciesDetails] = useState<any>(null);
-  const [isModalOpen, setModalOpen] = useState(true);
+  const [isModalOpen, setModalOpen] = useState(false);
   const spritesObject = details ? details.sprites : null;
   const otherImagesObjects: ImageVariantsItem[] = spritesObject && spritesObject.other ? Object.values(spritesObject.other) : [];
   const imageUrls: string[] = otherImagesObjects.map((o) => o.front_default).filter(x => !!x);
@@ -54,7 +56,12 @@ const PokemonDetails: React.FC = () => {
     fetchPokemonDetails(pokemonId);
     fetchPokemonSpeciesDetails(pokemonId);
   };
-  const closeModal = () => {
+  const openModal = () => {
+    controls.start({ y: 0 });
+    setModalOpen(true);
+  };
+  const closeModal = async () => {
+    await controls.start({ y: '100vh' });
     setModalOpen(false);
     navigate('/');
   };
@@ -99,6 +106,16 @@ const PokemonDetails: React.FC = () => {
     navigate(`/pokemon/${newId}`);
   };
   useEffect(() => {
+    openModal();
+  }, []);
+  useEffect(() => {
+    if (isModalOpen) {
+      controls.start({ y: 0 });
+    } else {
+      controls.start({ y: '100vh' });
+    }
+  }, [isModalOpen, controls]);
+  useEffect(() => {
     if (id !== undefined) {
       fetchAllPokemonData(id);
     }
@@ -108,7 +125,13 @@ const PokemonDetails: React.FC = () => {
     };
   }, [id]);
   return (
-    <div className={`pokemon-details ${isModalOpen ? 'open' : 'closed'}`} onClick={handleOutsideClick}>
+    <motion.div
+      className={`pokemon-details ${isModalOpen ? 'open' : 'closed'}`}
+      onClick={handleOutsideClick}
+      initial={{ y: '100vh' }}
+      animate={controls}
+      transition={{ type: 'spring', duration: 0.3 }}
+    >
       <div className="pokemon-details__container">
         <a className="close-button" onClick={closeModal}>×</a>
         <div className="pokemon-details__content" onClick={handleModalClick}>
@@ -146,7 +169,7 @@ const PokemonDetails: React.FC = () => {
           ) : <Spinner />}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
