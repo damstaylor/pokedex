@@ -19,7 +19,7 @@ const SpeciesDetails: React.FC<SpeciesDetailsProps> = ({ details, speciesDetails
   const genus = speciesDetails?.genera?.find((it: Genus) => it.language.name === 'en')?.genus;
   const generationStr = speciesDetails?.generation?.name;
   const generationNb = (generationStr.match(/i/g) || []).length;
-  const description = speciesDetails?.flavor_text_entries[0].flavor_text;
+  const description = speciesDetails?.flavor_text_entries?.find((e: any) => e.language.name === 'en' && e.version.name === 'x')?.flavor_text;
   return (
     <div className="species-details">
       <h3>General info</h3>
