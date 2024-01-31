@@ -95,6 +95,14 @@
     margin: 16px 0;
   }
 
+  .pokemon-details__evolutions {
+    .evolution-container {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+  }
+
   .section {
     margin: 40px 0;
   }

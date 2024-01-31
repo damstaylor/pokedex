@@ -7,21 +7,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import fetchData from '@/services/fetchData.ts';
 import formatNumber from '@/utils/utils.ts';
 import ImageSlider from '@/components/ImageSlider/ImageSlider.tsx';
+import PokemonGrid from '@/components/PokemonGrid/PokemonGrid.tsx';
 import SpeciesDetails from '@/components/SpeciesDetails/SpeciesDetails.tsx';
 import Spinner from '@/components/Spinner/Spinner.tsx';
 import Stats from '@/components/Stats/Stats.tsx';
 import TypePill from '@/components/TypePill/TypePill.tsx';
-
-type ImageVariantsItem = {
-  back_default: string;
-  back_female: string;
-  back_shiny: string;
-  back_shiny_female: string;
-  front_default: string;
-  front_female: string;
-  front_shiny: string;
-  front_shiny_female: string;
-};
 
 const PokemonDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,6 +24,7 @@ const PokemonDetails: React.FC = () => {
   const ID_SPE_MAX = 10277;
   const [details, setDetails] = useState<any>(null);
   const [speciesDetails, setSpeciesDetails] = useState<any>(null);
+  const [evolutions, setEvolutions] = useState<Evolution[]>([]);
   const [isModalOpen, setModalOpen] = useState(false);
   const spritesObject = details ? details.sprites : null;
   const otherImagesObjects: ImageVariantsItem[] = spritesObject && spritesObject.other ? Object.values(spritesObject.other) : [];
@@ -43,12 +34,14 @@ const PokemonDetails: React.FC = () => {
   const fetchPokemonDetails = async (pokemonId: string) => {
     const results = await fetchData(`pokemon/${pokemonId}`);
     if (results !== undefined) {
+      console.log(results);
       setDetails(results);
     }
   };
   const fetchPokemonSpeciesDetails = async (pokemonId: string) => {
     const results = await fetchData(`pokemon-species/${pokemonId}`);
     if (results !== undefined) {
+      console.log(results);
       setSpeciesDetails(results);
     }
   };
@@ -124,6 +117,45 @@ const PokemonDetails: React.FC = () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [id]);
+  useEffect(() => {
+    const fetchEvolutions = async () => {
+      if (speciesDetails === null) {
+        return;
+      }
+      const evolutionChain = await fetchData(speciesDetails.evolution_chain.url, true);
+      if (evolutionChain !== undefined) {
+        console.log(evolutionChain);
+        function extractEvolutionChainUrls(evolutionChainLink: EvolutionChainLink): APIBaseItem[] {
+          return evolutionChainLink.species
+            ? [evolutionChainLink.species, ...evolutionChainLink.evolves_to.reduce(
+              (acc: APIBaseItem, evolvesTo: EvolutionChainLink[]) => [...acc, ...extractEvolutionChainUrls(evolvesTo)],
+              []
+            )]
+            : [];
+        }
+        const chainUrlsAndName = extractEvolutionChainUrls(evolutionChain.chain);
+        const items = chainUrlsAndName.map(o => {
+          const matches = o.url ? o.url.match(/\/(\d+)\/?$/) : [];
+          return {
+            number: Number(matches ? matches[matches.length - 1] : -1),
+            name: o.name,
+            url: o.url
+          };
+        });
+        setEvolutions(items);
+        // const chainUrls = chainUrlsAndName.map(o => o.url);
+        // const promises = chainUrls.map(url => fetchData(url, true));
+        // const fetchedEvolutionChainItemsDetails = await Promise.all(promises);
+        // console.log(fetchedEvolutionChainItemsDetails.map(x => x.name));
+      }
+    };
+    fetchEvolutions();
+  }, [speciesDetails]);
+  const formattedEvolutions = evolutions ? evolutions.map((evolution: any) => ({
+    name: evolution.name,
+    number: evolution.number,
+    imageUrl: `${import.meta.env.VITE_IMG_BASE_URL}/${evolution.number}.png`,
+  })) as Pokemon[] : [];
   return (
     <motion.div
       className={`pokemon-details ${isModalOpen ? 'open' : 'closed'}`}
@@ -148,6 +180,12 @@ const PokemonDetails: React.FC = () => {
                     {details.types.map((t: { type: { name: string; }; }) => (
                       <TypePill text={t.type.name} key={t.type.name} />
                     ))}
+                  </div>
+                  <div className="pokemon-details__evolutions section">
+                    <h3>Evolutions</h3>
+                    <div className="evolution-container">
+                      {evolutions && <PokemonGrid items={formattedEvolutions} />}
+                    </div>
                   </div>
                   <div className="pokemon-details__more-info section">
                     {speciesDetails && <div className="pokemon-details__species-details section">
