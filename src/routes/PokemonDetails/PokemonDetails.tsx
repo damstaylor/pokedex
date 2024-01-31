@@ -36,6 +36,9 @@ const PokemonDetails: React.FC = () => {
   const defaultSprites = spritesObject ? Object.values(spritesObject).filter(val => typeof val === 'string') : [];
   const otherImagesObjects: ImageVariantsItem[] = spritesObject && spritesObject.other ? Object.values(spritesObject.other) : [];
   const imageUrls: string[] = otherImagesObjects.map((o) => o.front_default).filter(x => !!x);
+  const genus = speciesDetails ? speciesDetails.genera?.find((it: Genus) => it.language.name === 'en')?.genus : '';
+  const generation = speciesDetails ? speciesDetails.generation.name : '';
+  const description = speciesDetails ? speciesDetails.flavor_text_entries[0].flavor_text : '';
   const stats = details ? details.stats.map((stat: any) => ({ label: capitalCase(stat.stat.name), value: stat.base_stat })) : [];
 
   const fetchPokemonDetails = async (pokemonId: string) => {
@@ -132,14 +135,24 @@ const PokemonDetails: React.FC = () => {
                   <div className="pokemon-details__types">
                     {details.types.map((t: { type: { name: string; }; }) => (
                       <TypePill text={t.type.name} key={t.type.name} />
-                      ))}
+                    ))}
                   </div>
-                  <div className="pokemon-details__section">
-                    <h3>General info</h3>
-                    <p>Height: {formatDmHeight(details.height)}</p>
-                    <p>Weight: {formatHgWeight(details.weight)}</p>
+                  <div className="pokemon-details__more-info section">
+                    <div>
+                      <h3>General info</h3>
+                      <p>Generation: {generation}</p>
+                      <p>Height: {formatDmHeight(details.height)}</p>
+                      <p>Weight: {formatHgWeight(details.weight)}</p>
+                      {speciesDetails &&
+                        <>
+                          <p>Habitat: {speciesDetails.habitat.name}</p>
+                          <p>Genus: {genus}</p>
+                          <p>Description: {description}</p>
+                        </>
+                      }
+                    </div>
                   </div>
-                  <div className="pokemon-details__section">
+                  <div className="pokemon-details__stats-container section">
                     <Stats stats={stats} />
                   </div>
                 </div>
