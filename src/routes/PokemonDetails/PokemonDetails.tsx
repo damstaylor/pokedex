@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import fetchData from '@/services/fetchData.ts';
-import TypePill from '@/components/TypePill/TypePill.tsx';
-import Spinner from '@/components/Spinner/Spinner.tsx';
-import ImageSlider from '@/components/ImageSlider/ImageSlider';
-import Stats from '@/components/Stats/Stats';
-import SpeciesDetails from '@/components/SpeciesDetails/SpeciesDetails';
 import formatNumber from '@/utils/utils.ts';
+import ImageSlider from '@/components/ImageSlider/ImageSlider.tsx';
+import SpeciesDetails from '@/components/SpeciesDetails/SpeciesDetails.tsx';
+import Spinner from '@/components/Spinner/Spinner.tsx';
+import Stats from '@/components/Stats/Stats.tsx';
+import TypePill from '@/components/TypePill/TypePill.tsx';
 
 type ImageVariantsItem = {
   back_default: string;
