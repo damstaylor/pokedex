@@ -33,9 +33,7 @@ const PokemonDetails: React.FC = () => {
   const [details, setDetails] = useState<any>(null);
   const [speciesDetails, setSpeciesDetails] = useState<any>(null);
   const [isModalOpen, setModalOpen] = useState(true);
-  const defaultImageUrl = 'https://assets.stickpng.com/images/580b57fcd9996e24bc43c329.png';
   const spritesObject = details ? details.sprites : null;
-  const defaultSprites = spritesObject ? Object.values(spritesObject).filter(val => typeof val === 'string') : [];
   const otherImagesObjects: ImageVariantsItem[] = spritesObject && spritesObject.other ? Object.values(spritesObject.other) : [];
   const imageUrls: string[] = otherImagesObjects.map((o) => o.front_default).filter(x => !!x);
   const stats = details ? details.stats.map((stat: any) => ({ label: capitalCase(stat.stat.name), value: stat.base_stat })) : [];
