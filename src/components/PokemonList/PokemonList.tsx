@@ -1,6 +1,5 @@
 import './PokemonList.scss';
 import { useState, useEffect } from 'react';
-import { capitalCase } from 'change-case';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Spinner from '@/components/Spinner/Spinner.tsx';
 import PokemonGrid from '../PokemonGrid/PokemonGrid';
@@ -17,7 +16,7 @@ const PokemonList: React.FC = () => {
       const response = await fetch(`${VITE_BASE_URL}/pokemon/?limit=${limit}&offset=${offset}`);
       const data = await response.json();
       const newItemList = data.results.map((item: APIBaseItem, index: number) => ({
-        name: capitalCase(item.name),
+        name: item.name,
         imageUrl: `${VITE_IMG_BASE_URL}/${offset + index + 1}.png`,
         number: offset + index + 1,
       }));
