@@ -18,7 +18,7 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ name, imageUrl, number, selec
     handleClick();
   };
   return (
-    <li className={`pokemon-item ${selected && 'selected'}`}>
+    <li className={`pokemon-item ${selected ? 'selected' : ''}`}>
       <a onClick={onClick}>
         <div className="pokemon-item__img">
           <img src={imageUrl} alt={name + '_image'} />
