@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { capitalCase } from 'change-case';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Pokemon from '@/interfaces/Pokemon.ts';
-import PokemonItem from '@/components/PokemonItem/PokemonItem.tsx';
 import Spinner from '@/components/Spinner/Spinner.tsx';
+import PokemonGrid from '../PokemonGrid/PokemonGrid';
 
 type PokemonApiItem = { name: string; url: string; };
 
@@ -57,16 +57,7 @@ const PokemonList: React.FC = () => {
         scrollThreshold={1}
         height={'calc(100lvh - 88px)'}
       >
-        <ul className="pokemon-list__container">
-          {pokemonList.map(pokemon => (
-            <PokemonItem
-              key={`${pokemon.name}-${pokemon.number}`}
-              name={capitalCase(pokemon.name)}
-              imageUrl={pokemon.imageUrl}
-              number={pokemon.number}
-            />
-          ))}
-        </ul>
+        <PokemonGrid items={pokemonList} />
       </InfiniteScroll>
     </div>
   );
