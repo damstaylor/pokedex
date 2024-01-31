@@ -9,6 +9,7 @@ import Spinner from '@/components/Spinner/Spinner.tsx';
 import ImageSlider from '@/components/ImageSlider/ImageSlider';
 import Stats from '@/components/Stats/Stats';
 import SpeciesDetails from '@/components/SpeciesDetails/SpeciesDetails';
+import formatNumber from '@/utils/utils.ts';
 
 type ImageVariantsItem = {
   back_default: string;
@@ -115,7 +116,7 @@ const PokemonDetails: React.FC = () => {
         <div className="pokemon-details__content" onClick={handleModalClick}>
           {details ? (
             <>
-              <h2>#{id} {capitalCase(details.name)}</h2>
+              <h2>{id && formatNumber(id)} {capitalCase(details.name)}</h2>
               <div className="pokemon-details__data-container">
                 <a className="arrow" onClick={navigateToPrevious}>
                   <FontAwesomeIcon icon="angle-left" />
