@@ -15,10 +15,10 @@ function formatHgWeight(weightInHg: number): string {
 }
 
 const SpeciesDetails: React.FC<SpeciesDetailsProps> = ({ details, speciesDetails }) => {
-  const habitat = speciesDetails?.habitat?.name;
-  const genus = speciesDetails?.genera?.find((it: Genus) => it.language.name === 'en')?.genus;
+  const habitat = speciesDetails?.habitat?.name || 'Unknown';
+  const genus = speciesDetails?.genera?.find((it: Genus) => it.language.name === 'en')?.genus || 'Unknown';
   const generationStr = speciesDetails?.generation?.name;
-  const generationNb = (generationStr.match(/i/g) || []).length;
+  const generationNb = (generationStr.match(/generation-(.*)/) || [])[1].toUpperCase();
   const description = speciesDetails?.flavor_text_entries?.find((e: any) => e.language.name === 'en' && e.version.name === 'x')?.flavor_text;
   return (
     <div className="species-details">
@@ -30,7 +30,7 @@ const SpeciesDetails: React.FC<SpeciesDetailsProps> = ({ details, speciesDetails
         <>
           <p>Habitat: {habitat}</p>
           <p>Genus: {genus}</p>
-          <p>Description: {description}</p>
+          {description && <p>Description: {description}</p>}
         </>
       }
     </div>
