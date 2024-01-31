@@ -8,6 +8,7 @@ import TypePill from '@/components/TypePill/TypePill.tsx';
 import Spinner from '@/components/Spinner/Spinner.tsx';
 import ImageSlider from '@/components/ImageSlider/ImageSlider';
 import Stats from '@/components/Stats/Stats';
+import SpeciesDetails from '@/components/SpeciesDetails/SpeciesDetails';
 
 type ImageVariantsItem = {
   back_default: string;
@@ -36,9 +37,6 @@ const PokemonDetails: React.FC = () => {
   const defaultSprites = spritesObject ? Object.values(spritesObject).filter(val => typeof val === 'string') : [];
   const otherImagesObjects: ImageVariantsItem[] = spritesObject && spritesObject.other ? Object.values(spritesObject.other) : [];
   const imageUrls: string[] = otherImagesObjects.map((o) => o.front_default).filter(x => !!x);
-  const genus = speciesDetails ? speciesDetails.genera?.find((it: Genus) => it.language.name === 'en')?.genus : '';
-  const generation = speciesDetails ? speciesDetails.generation.name : '';
-  const description = speciesDetails ? speciesDetails.flavor_text_entries[0].flavor_text : '';
   const stats = details ? details.stats.map((stat: any) => ({ label: capitalCase(stat.stat.name), value: stat.base_stat })) : [];
 
   const fetchPokemonDetails = async (pokemonId: string) => {
@@ -79,14 +77,6 @@ const PokemonDetails: React.FC = () => {
         break;
     }
   };
-  function formatDmHeight(heightInDm: number): string {
-    const heightInM = heightInDm / 10;
-    return heightInM >= 1 ? `${heightInM.toFixed(1)} m` : `${(heightInM * 10).toFixed(1)} cm`;
-  }
-  function formatHgWeight(weightInHg: number): string {
-    const weightInKg = weightInHg / 10;
-    return weightInKg >= 1 ? `${weightInKg.toFixed(1)} kg` : `${(weightInKg * 100).toFixed(1)} g`;
-  }
   const navigateToPrevious = () => {
     let newId;
     if (numId === ID_NUM_MIN) {
@@ -138,19 +128,12 @@ const PokemonDetails: React.FC = () => {
                     ))}
                   </div>
                   <div className="pokemon-details__more-info section">
-                    <div>
-                      <h3>General info</h3>
-                      <p>Generation: {generation}</p>
-                      <p>Height: {formatDmHeight(details.height)}</p>
-                      <p>Weight: {formatHgWeight(details.weight)}</p>
-                      {speciesDetails &&
-                        <>
-                          <p>Habitat: {speciesDetails.habitat.name}</p>
-                          <p>Genus: {genus}</p>
-                          <p>Description: {description}</p>
-                        </>
-                      }
-                    </div>
+                    {speciesDetails && <div className="pokemon-details__species-details section">
+                      <SpeciesDetails
+                        details={details}
+                        speciesDetails={speciesDetails}
+                      />
+                    </div>}
                   </div>
                   <div className="pokemon-details__stats-container section">
                     <Stats stats={stats} />
