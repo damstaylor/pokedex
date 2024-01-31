@@ -2,26 +2,22 @@ import './PokemonList.scss';
 import { useState, useEffect } from 'react';
 import { capitalCase } from 'change-case';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Pokemon from '@/interfaces/Pokemon.ts';
 import Spinner from '@/components/Spinner/Spinner.tsx';
 import PokemonGrid from '../PokemonGrid/PokemonGrid';
-
-type PokemonApiItem = { name: string; url: string; };
 
 const { VITE_BASE_URL, VITE_IMG_BASE_URL } = import.meta.env;
 
 const PokemonList: React.FC = () => {
   const [page, setPage] = useState(1);
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
-
   const fetchPokemonData = async (page: number): Promise<Pokemon[]> => {
     const limit = 40;
     const offset = (page - 1) * limit;
     try {
       const response = await fetch(`${VITE_BASE_URL}/pokemon/?limit=${limit}&offset=${offset}`);
       const data = await response.json();
-      const newItemList = data.results.map((item: PokemonApiItem, index: number) => ({
-        name: item.name,
+      const newItemList = data.results.map((item: APIBaseItem, index: number) => ({
+        name: capitalCase(item.name),
         imageUrl: `${VITE_IMG_BASE_URL}/${offset + index + 1}.png`,
         number: offset + index + 1,
       }));
@@ -31,13 +27,11 @@ const PokemonList: React.FC = () => {
       return [];
     }
   };
-
   const loadMorePokemon = async () => {
     const newPokemonList = await fetchPokemonData(page + 1);
     setPokemonList((prevList) => [...prevList, ...newPokemonList]);
     setPage((prevPage) => prevPage + 1);
   };
-
   useEffect(() => {
     const fetchInitialPokemonData = async () => {
       const newPokemonList = await fetchPokemonData(page);
@@ -45,7 +39,6 @@ const PokemonList: React.FC = () => {
     };
     fetchInitialPokemonData();
   }, []);
-
   return (
     <div className="pokemon-list" id="scrollableDiv">
       <InfiniteScroll
