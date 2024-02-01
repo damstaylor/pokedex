@@ -25,7 +25,7 @@ const PokemonDetails: React.FC = () => {
   const [details, setDetails] = useState<any>(null);
   const [speciesDetails, setSpeciesDetails] = useState<any>(null);
   const [evolutions, setEvolutions] = useState<Evolution[]>([]);
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const spritesObject = details ? details.sprites : null;
   const otherImagesObjects: ImageVariantsItem[] = spritesObject && spritesObject.other ? Object.values(spritesObject.other) : [];
   const imageUrls: string[] = otherImagesObjects.map((o) => o.front_default).filter(x => !!x);
@@ -51,11 +51,11 @@ const PokemonDetails: React.FC = () => {
   };
   const openModal = () => {
     controls.start({ y: 0 });
-    setModalOpen(true);
+    setIsModalOpen(true);
   };
   const closeModal = async () => {
     await controls.start({ y: '100vh' });
-    setModalOpen(false);
+    setIsModalOpen(false);
     navigate('/');
   };
   const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
