@@ -128,7 +128,7 @@ const PokemonDetails: React.FC = () => {
         function extractEvolutionChainUrls(evolutionChainLink: EvolutionChainLink): APIBaseItem[] {
           return evolutionChainLink.species
             ? [evolutionChainLink.species, ...evolutionChainLink.evolves_to.reduce(
-              (acc: APIBaseItem, evolvesTo: EvolutionChainLink[]) => [...acc, ...extractEvolutionChainUrls(evolvesTo)],
+              (acc: APIBaseItem[], evolvesTo: EvolutionChainLink) => [...acc, ...extractEvolutionChainUrls(evolvesTo)],
               []
             )]
             : [];
@@ -139,7 +139,7 @@ const PokemonDetails: React.FC = () => {
           return {
             number: Number(matches ? matches[matches.length - 1] : -1),
             name: o.name,
-            url: o.url
+            url: o.url,
           };
         });
         setEvolutions(items);
