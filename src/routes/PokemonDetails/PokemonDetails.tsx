@@ -17,7 +17,8 @@ const PokemonDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const numId = Number(id);
   const navigate = useNavigate();
-  const controls = useAnimation();
+  const containerControls = useAnimation();
+  const backdropControls = useAnimation();
   const ID_NUM_MIN = 1;
   const ID_NUM_MAX = 1025;
   const ID_SPE_MIN = 10001;
@@ -25,7 +26,6 @@ const PokemonDetails: React.FC = () => {
   const [details, setDetails] = useState<any>(null);
   const [speciesDetails, setSpeciesDetails] = useState<any>(null);
   const [evolutions, setEvolutions] = useState<Evolution[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const spritesObject = details ? details.sprites : null;
   const otherImagesObjects: ImageVariantsItem[] = spritesObject && spritesObject.other ? Object.values(spritesObject.other) : [];
   const imageUrls: string[] = otherImagesObjects.map((o) => o.front_default).filter(x => !!x);
@@ -50,12 +50,14 @@ const PokemonDetails: React.FC = () => {
     fetchPokemonSpeciesDetails(pokemonId);
   };
   const openModal = () => {
-    controls.start({ y: 0 });
-    setIsModalOpen(true);
+    backdropControls.start({ opacity: 1 }),
+    containerControls.start({ y: 0 });
   };
   const closeModal = async () => {
-    await controls.start({ y: '100vh' });
-    setIsModalOpen(false);
+    await Promise.all([
+      backdropControls.start({ opacity: 0 }),
+      containerControls.start({ y: '100vh' }),
+    ]);
     navigate('/');
   };
   const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -101,13 +103,6 @@ const PokemonDetails: React.FC = () => {
   useEffect(() => {
     openModal();
   }, []);
-  useEffect(() => {
-    if (isModalOpen) {
-      controls.start({ y: 0 });
-    } else {
-      controls.start({ y: '100vh' });
-    }
-  }, [isModalOpen, controls]);
   useEffect(() => {
     if (id !== undefined) {
       fetchAllPokemonData(id);
@@ -158,13 +153,18 @@ const PokemonDetails: React.FC = () => {
   })) as Pokemon[] : [];
   return (
     <motion.div
-      className={`pokemon-details ${isModalOpen ? 'open' : 'closed'}`}
+      className="pokemon-details"
+      initial={{ opacity: 0 }}
+      animate={backdropControls}
+      transition={{ duration: 0.3 }}
       onClick={handleOutsideClick}
-      initial={{ y: '100vh' }}
-      animate={controls}
-      transition={{ type: 'spring', duration: 0.3 }}
     >
-      <div className="pokemon-details__container">
+      <motion.div
+        className="pokemon-details__container"
+        initial={{ y: '100vh' }}
+        animate={containerControls}
+        transition={{ type: 'spring', duration: 0.3 }}
+      >
         <a className="close-button" onClick={closeModal}>×</a>
         <div className="pokemon-details__content" onClick={handleModalClick}>
           {details ? (
@@ -183,9 +183,7 @@ const PokemonDetails: React.FC = () => {
                   </div>
                   <div className="pokemon-details__evolutions section">
                     <h3>Evolutions</h3>
-                    <div className="evolution-container">
-                      {evolutions && <PokemonGrid items={formattedEvolutions} />}
-                    </div>
+                    {evolutions && <PokemonGrid items={formattedEvolutions} />}
                   </div>
                   <div className="pokemon-details__more-info section">
                     {speciesDetails && <div className="pokemon-details__species-details section">
@@ -206,7 +204,7 @@ const PokemonDetails: React.FC = () => {
             </>
           ) : <Spinner />}
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
