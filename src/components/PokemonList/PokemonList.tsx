@@ -47,6 +47,7 @@ const PokemonList: React.FC = () => {
         loader={<Spinner />}
         endMessage={<p>No more Pokémon to load.</p>}
         scrollThreshold={1}
+        // Necessary for triggering infinite scroll in component
         height={'calc(100lvh - 88px)'}
       >
         <PokemonGrid items={pokemonList} />
