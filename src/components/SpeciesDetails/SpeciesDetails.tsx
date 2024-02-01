@@ -30,7 +30,11 @@ const SpeciesDetails: React.FC<SpeciesDetailsProps> = ({ details, speciesDetails
         <>
           <p>Habitat: {habitat}</p>
           <p>Genus: {genus}</p>
-          {description && <p>Description: {description}</p>}
+          {description &&
+            <p className="species-details__description">
+              {description}
+            </p>
+          }
         </>
       }
     </div>
