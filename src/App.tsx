@@ -2,7 +2,7 @@ import './App.scss';
 import { Outlet } from 'react-router-dom';
 import PokemonList from './components/PokemonList/PokemonList.tsx';
 
-const App = () => {
+function App(): JSX.Element {
   return (
     <div className="app-container">
       <header className="header">
@@ -13,7 +13,7 @@ const App = () => {
       </main>
       <Outlet />
     </div>
-  );
-};
+  )
+}
 
 export default App;
