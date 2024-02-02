@@ -6,15 +6,21 @@
   "extends": [
     "standard-with-typescript",
     "plugin:react/recommended",
+    "plugin:prettier/recommended",
     "prettier"
   ],
+  "ignorePatterns": ["dist", ".eslintrc.cjs"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
   "plugins": [
-    "react"
-],
+    "prettier",
+    "react",
+    "react-refresh",
+    "react-refresh/only-export-components"
+  ],
   "rules": {
     "prettier/prettier": ["error"]
   }
