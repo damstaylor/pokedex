@@ -95,7 +95,7 @@ devDependencies:
     specifier: ^29.7.0
     version: 29.7.0(@types/node@20.11.16)
   prettier:
-    specifier: 3.2.4
+    specifier: ^3.2.4
     version: 3.2.4
   sass:
     specifier: ^1.70.0
