@@ -10,7 +10,13 @@ interface PokemonItemProps {
   handleClick: Function;
 }
 
-const PokemonItem = ({ name, imageUrl, number, selected = false, handleClick }: PokemonItemProps) => {
+const PokemonItem = ({
+  name,
+  imageUrl,
+  number,
+  selected = false,
+  handleClick,
+}: PokemonItemProps) => {
   const onClick = () => {
     if (selected) {
       return;

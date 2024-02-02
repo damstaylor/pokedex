@@ -13,7 +13,7 @@ function App(): JSX.Element {
       </main>
       <Outlet />
     </div>
-  )
+  );
 }
 
 export default App;

@@ -16,7 +16,10 @@ const ImageSlider = ({ images }: ImageSliderProps) => {
   return (
     <div className="image-slider">
       <div className="image-slider__main-image-container">
-        <img src={images[selectedImageIndex]} alt={`Image ${selectedImageIndex}`} />
+        <img
+          src={images[selectedImageIndex]}
+          alt={`Image ${selectedImageIndex}`}
+        />
       </div>
       <div className="image-slider__preview-container">
         <div className="arrow" onClick={() => handleImageClick(prevImage)}>

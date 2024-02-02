@@ -4,7 +4,7 @@ import PokemonItem from '@/components/PokemonItem/PokemonItem.tsx';
 
 interface PokemonGridProps {
   items: Pokemon[];
-};
+}
 
 const PokemonGrid = ({ items }: PokemonGridProps) => {
   const navigate = useNavigate();

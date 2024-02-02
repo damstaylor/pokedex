@@ -14,7 +14,7 @@ import Stats from '@/components/Stats/Stats.tsx';
 import TypePill from '@/components/TypePill/TypePill.tsx';
 
 const PokemonDetails = () => {
-  const { id } = useParams<{ id: string; }>();
+  const { id } = useParams<{ id: string }>();
   const numId = Number(id);
   const navigate = useNavigate();
   const containerControls = useAnimation();
@@ -27,9 +27,19 @@ const PokemonDetails = () => {
   const [speciesDetails, setSpeciesDetails] = useState<any>(null);
   const [evolutions, setEvolutions] = useState<Evolution[]>([]);
   const spritesObject = details ? details.sprites : null;
-  const otherImagesObjects: ImageVariantsItem[] = spritesObject && spritesObject.other ? Object.values(spritesObject.other) : [];
-  const imageUrls: string[] = otherImagesObjects.map((o) => o.front_default).filter(x => !!x);
-  const stats = details ? details.stats.map((stat: any) => ({ label: capitalCase(stat.stat.name), value: stat.base_stat })) : [];
+  const otherImagesObjects: ImageVariantsItem[] =
+    spritesObject && spritesObject.other
+      ? Object.values(spritesObject.other)
+      : [];
+  const imageUrls: string[] = otherImagesObjects
+    .map((o) => o.front_default)
+    .filter((x) => !!x);
+  const stats = details
+    ? details.stats.map((stat: any) => ({
+        label: capitalCase(stat.stat.name),
+        value: stat.base_stat,
+      }))
+    : [];
 
   const fetchPokemonDetails = async (pokemonId: string) => {
     const results = await fetchData(`pokemon/${pokemonId}`);
@@ -50,8 +60,7 @@ const PokemonDetails = () => {
     fetchPokemonSpeciesDetails(pokemonId);
   };
   const openModal = () => {
-    backdropControls.start({ opacity: 1 }),
-      containerControls.start({ y: 0 });
+    backdropControls.start({ opacity: 1 }), containerControls.start({ y: 0 });
   };
   const closeModal = async () => {
     await Promise.all([
@@ -117,19 +126,32 @@ const PokemonDetails = () => {
       if (speciesDetails === null) {
         return;
       }
-      const evolutionChain = await fetchData(speciesDetails.evolution_chain.url, true);
+      const evolutionChain = await fetchData(
+        speciesDetails.evolution_chain.url,
+        true
+      );
       if (evolutionChain !== undefined) {
         console.log(evolutionChain);
-        function extractEvolutionChainUrls(evolutionChainLink: EvolutionChainLink): APIBaseItem[] {
+        function extractEvolutionChainUrls(
+          evolutionChainLink: EvolutionChainLink
+        ): APIBaseItem[] {
           return evolutionChainLink.species
-            ? [evolutionChainLink.species, ...evolutionChainLink.evolves_to.reduce(
-              (acc: APIBaseItem[], evolvesTo: EvolutionChainLink) => [...acc, ...extractEvolutionChainUrls(evolvesTo)],
-              []
-            )]
+            ? [
+                evolutionChainLink.species,
+                ...evolutionChainLink.evolves_to.reduce(
+                  (acc: APIBaseItem[], evolvesTo: EvolutionChainLink) => [
+                    ...acc,
+                    ...extractEvolutionChainUrls(evolvesTo),
+                  ],
+                  []
+                ),
+              ]
             : [];
         }
-        const chainUrlsAndName = extractEvolutionChainUrls(evolutionChain.chain);
-        const items = chainUrlsAndName.map(o => {
+        const chainUrlsAndName = extractEvolutionChainUrls(
+          evolutionChain.chain
+        );
+        const items = chainUrlsAndName.map((o) => {
           const matches = o.url ? o.url.match(/\/(\d+)\/?$/) : [];
           return {
             number: Number(matches ? matches[matches.length - 1] : -1),
@@ -146,11 +168,13 @@ const PokemonDetails = () => {
     };
     fetchEvolutions();
   }, [speciesDetails]);
-  const formattedEvolutions = evolutions ? evolutions.map((evolution: any) => ({
-    name: evolution.name,
-    number: evolution.number,
-    imageUrl: `${import.meta.env.VITE_IMG_BASE_URL}/${evolution.number}.png`,
-  })) as Pokemon[] : [];
+  const formattedEvolutions = evolutions
+    ? (evolutions.map((evolution: any) => ({
+        name: evolution.name,
+        number: evolution.number,
+        imageUrl: `${import.meta.env.VITE_IMG_BASE_URL}/${evolution.number}.png`,
+      })) as Pokemon[])
+    : [];
   return (
     <motion.div
       className="pokemon-details"
@@ -165,11 +189,15 @@ const PokemonDetails = () => {
         animate={containerControls}
         transition={{ type: 'spring', duration: 0.3 }}
       >
-        <a className="close-button" onClick={closeModal}>×</a>
+        <a className="close-button" onClick={closeModal}>
+          ×
+        </a>
         <div className="pokemon-details__content" onClick={handleModalClick}>
           {details ? (
             <>
-              <h2>{id && formatNumber(id)} {capitalCase(details.name)}</h2>
+              <h2>
+                {id && formatNumber(id)} {capitalCase(details.name)}
+              </h2>
               <div className="pokemon-details__data-container">
                 <a className="arrow" onClick={navigateToPrevious}>
                   <FontAwesomeIcon icon="angle-left" />
@@ -177,7 +205,7 @@ const PokemonDetails = () => {
                 <div className="pokemon-details__data">
                   <ImageSlider images={imageUrls} />
                   <div className="pokemon-details__types">
-                    {details.types.map((t: { type: { name: string; }; }) => (
+                    {details.types.map((t: { type: { name: string } }) => (
                       <TypePill text={t.type.name} key={t.type.name} />
                     ))}
                   </div>
@@ -186,12 +214,14 @@ const PokemonDetails = () => {
                     {evolutions && <PokemonGrid items={formattedEvolutions} />}
                   </div>
                   <div className="pokemon-details__more-info section">
-                    {speciesDetails && <div className="pokemon-details__species-details section">
-                      <SpeciesDetails
-                        details={details}
-                        speciesDetails={speciesDetails}
-                      />
-                    </div>}
+                    {speciesDetails && (
+                      <div className="pokemon-details__species-details section">
+                        <SpeciesDetails
+                          details={details}
+                          speciesDetails={speciesDetails}
+                        />
+                      </div>
+                    )}
                   </div>
                   <div className="pokemon-details__stats-container section">
                     <Stats stats={stats} />
@@ -202,7 +232,9 @@ const PokemonDetails = () => {
                 </a>
               </div>
             </>
-          ) : <Spinner />}
+          ) : (
+            <Spinner />
+          )}
         </div>
       </motion.div>
     </motion.div>

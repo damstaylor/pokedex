@@ -11,12 +11,12 @@ library.add(faAngleLeft, faAngleRight);
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     // errorElement: <ErrorPage />,
     children: [
       {
-        path: "/pokemon/:id",
+        path: '/pokemon/:id',
         element: <PokemonDetails />,
       },
     ],
@@ -28,5 +28,5 @@ const rootElement = document.getElementById('root') ?? document.body;
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
+  </React.StrictMode>
 );

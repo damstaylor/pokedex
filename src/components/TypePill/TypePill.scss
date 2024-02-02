@@ -31,7 +31,7 @@
     unknown: #678f70 #ccd9cc,
     water: #5679b9 #ccd9f9,
   );
-  
+
   @each $type, $colors in $type-colors {
     &.#{$type} {
       color: nth($colors, 1);

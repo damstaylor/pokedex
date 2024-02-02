@@ -46,18 +46,18 @@
     align-items: center;
     justify-content: space-between;
     height: calc(100% - 68px);
-    
+
     a.arrow {
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100%;
       padding: 0 24px;
-      
+
       &:hover {
         background-color: #fafafa;
       }
-      
+
       svg {
         font-size: 64px;
       }
@@ -75,8 +75,8 @@
 
     /* Hide scrollbar for IE, Edge and Firefox */
     & {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
     }
   }
 

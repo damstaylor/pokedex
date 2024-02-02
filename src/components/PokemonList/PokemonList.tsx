@@ -13,13 +13,17 @@ const PokemonList = () => {
     const limit = 40;
     const offset = (page - 1) * limit;
     try {
-      const response = await fetch(`${VITE_BASE_URL}/pokemon/?limit=${limit}&offset=${offset}`);
+      const response = await fetch(
+        `${VITE_BASE_URL}/pokemon/?limit=${limit}&offset=${offset}`
+      );
       const data = await response.json();
-      const newItemList = data.results.map((item: APIBaseItem, index: number) => ({
-        name: item.name,
-        imageUrl: `${VITE_IMG_BASE_URL}/${offset + index + 1}.png`,
-        number: offset + index + 1,
-      }));
+      const newItemList = data.results.map(
+        (item: APIBaseItem, index: number) => ({
+          name: item.name,
+          imageUrl: `${VITE_IMG_BASE_URL}/${offset + index + 1}.png`,
+          number: offset + index + 1,
+        })
+      );
       return newItemList as Pokemon[];
     } catch (error) {
       console.error('Error fetching Pokemon data:', error);
