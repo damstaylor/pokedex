@@ -45,7 +45,7 @@
         user-select: none;
 
         &.selected {
-          border-color: #3498db;
+          border-color: var(--primary-color);
           border-radius: 4px;
         }
       }

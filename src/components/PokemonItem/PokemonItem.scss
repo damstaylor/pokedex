@@ -5,12 +5,12 @@
   list-style: none;
 
   &:hover:not(.selected, .disabled) {
-    border-color: #3498db;
+    border-color: var(--primary-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
 
   &.selected {
-    border: 2px solid #3498db;
+    border: 2px solid var(--primary-color);
 
     a {
       cursor: default;

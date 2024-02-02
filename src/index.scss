@@ -1,11 +1,16 @@
 :root {
-  font-size: 16px;
+  --primary-text-color: #313131;
+  --secondary-text-color: #fafafa;
+  --bg-color: #ffffff;
+  --primary-color: #3498db;
+  --secondary-color: #ff5f44;
+  --tertiary-color: #4caf50;
+  --disabled: #cccccc;
+  font-size: 16px;  
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
-  color: #313131;
-  background-color: #ffffff;
   font-synthesis: none;
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
@@ -20,6 +25,16 @@
   box-sizing: border-box;
 }
 
+body {
+  color: var(--primary-text-color);
+  background-color: var(--bg-color);
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
 ul li {
   list-style: none;
 }
@@ -31,20 +46,12 @@ a {
 
   &.disabled {
     cursor: default;
-    color: grey;
+    color: var(--disabled);
   }
 
   &:hover:not(.disabled) {
-    color: #3498db;
+    color: var(--primary-color);
   }
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
 h1 {
@@ -77,7 +84,7 @@ button {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--primary-text-color);
+    background-color: var(--bg-color);
   }
 }

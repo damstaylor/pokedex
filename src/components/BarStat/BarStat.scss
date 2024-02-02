@@ -23,7 +23,7 @@
     flex-grow: 1;
     width: calc(5% - 4px);
     height: 100%;
-    background-color: #4caf50;
+    background-color: var(--tertiary-color);
     margin-right: 4px;
 
     &:last-child {
@@ -32,10 +32,10 @@
   }
 
   &__fragment.filled {
-    background-color: #4caf50;
+    background-color: var(--tertiary-color);
   }
 
   &__fragment.empty {
-    background-color: #cccccc;
+    background-color: var(--disabled);
   }
 }
