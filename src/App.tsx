@@ -2,7 +2,7 @@ import './App.scss';
 import { Outlet } from 'react-router-dom';
 import PokemonList from './components/PokemonList/PokemonList.tsx';
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <div className="app-container">
       <header className="header">

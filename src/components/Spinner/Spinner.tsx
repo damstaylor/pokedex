@@ -1,6 +1,6 @@
 import './Spinner.scss';
 
-const Spinner: React.FC = () => {
+const Spinner = () => {
   return (
     <div className="spinner-container">
       <div className="spinner"></div>

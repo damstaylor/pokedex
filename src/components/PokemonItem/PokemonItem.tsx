@@ -10,7 +10,7 @@ interface PokemonItemProps {
   handleClick: Function;
 }
 
-const PokemonItem: React.FC<PokemonItemProps> = ({ name, imageUrl, number, selected = false, handleClick }) => {
+const PokemonItem = ({ name, imageUrl, number, selected = false, handleClick }: PokemonItemProps) => {
   const onClick = () => {
     if (selected) {
       return;

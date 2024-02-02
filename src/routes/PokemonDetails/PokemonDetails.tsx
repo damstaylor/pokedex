@@ -13,8 +13,8 @@ import Spinner from '@/components/Spinner/Spinner.tsx';
 import Stats from '@/components/Stats/Stats.tsx';
 import TypePill from '@/components/TypePill/TypePill.tsx';
 
-const PokemonDetails: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+const PokemonDetails = () => {
+  const { id } = useParams<{ id: string; }>();
   const numId = Number(id);
   const navigate = useNavigate();
   const containerControls = useAnimation();
@@ -51,7 +51,7 @@ const PokemonDetails: React.FC = () => {
   };
   const openModal = () => {
     backdropControls.start({ opacity: 1 }),
-    containerControls.start({ y: 0 });
+      containerControls.start({ y: 0 });
   };
   const closeModal = async () => {
     await Promise.all([

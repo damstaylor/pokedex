@@ -6,7 +6,7 @@ interface ImageSliderProps {
   images: string[];
 }
 
-const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
+const ImageSlider = ({ images }: ImageSliderProps) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const prevImage = (selectedImageIndex - 1 + images.length) % images.length;
   const nextImage = (selectedImageIndex + 1) % images.length;

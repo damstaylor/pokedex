@@ -6,7 +6,7 @@ import PokemonGrid from '../PokemonGrid/PokemonGrid';
 
 const { VITE_BASE_URL, VITE_IMG_BASE_URL } = import.meta.env;
 
-const PokemonList: React.FC = () => {
+const PokemonList = () => {
   const [page, setPage] = useState(1);
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const fetchPokemonData = async (page: number): Promise<Pokemon[]> => {

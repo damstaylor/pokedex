@@ -6,7 +6,7 @@ interface PokemonGridProps {
   items: Pokemon[];
 };
 
-const PokemonGrid: React.FC<PokemonGridProps> = ({ items }) => {
+const PokemonGrid = ({ items }: PokemonGridProps) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const navigateTo = (newId: number | string) => {

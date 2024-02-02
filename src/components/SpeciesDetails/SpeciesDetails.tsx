@@ -14,7 +14,7 @@ function formatHgWeight(weightInHg: number): string {
   return weightInKg >= 1 ? `${weightInKg.toFixed(1)} kg` : `${(weightInKg * 100).toFixed(1)} g`;
 }
 
-const SpeciesDetails: React.FC<SpeciesDetailsProps> = ({ details, speciesDetails }) => {
+const SpeciesDetails = ({ details, speciesDetails }: SpeciesDetailsProps) => {
   const habitat = speciesDetails?.habitat?.name || 'Unknown';
   const genus = speciesDetails?.genera?.find((it: Genus) => it.language.name === 'en')?.genus || 'Unknown';
   const generationStr = speciesDetails?.generation?.name;

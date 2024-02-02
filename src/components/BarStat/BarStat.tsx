@@ -5,7 +5,7 @@ interface BarProps {
   value: number;
 }
 
-const BarStat: React.FC<BarProps> = ({ label, value }) => {
+const BarStat = ({ label, value }: BarProps) => {
   const valueOutOf20 = value / 255 * 20;
   const fragmentCount = Math.floor(valueOutOf20);
   const fragments = Array.from({ length: 20 }, (_, index) => (

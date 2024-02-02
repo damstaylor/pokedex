@@ -4,7 +4,7 @@ interface TypePillProps {
   text: string;
 }
 
-const TypePill: React.FC<TypePillProps> = ({ text }) => {
+const TypePill = ({ text }: TypePillProps) => {
   return (
     <div className={`typepill ${text}`}>
       <div className="typepill__text">{text}</div>
