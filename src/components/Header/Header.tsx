@@ -7,7 +7,7 @@ interface HeaderProps {
   hidden: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ children, hidden = false }) => {
+const Header = ({ children, hidden = false }: HeaderProps) => {
   const controls = useAnimation();
 
   useEffect(() => {
