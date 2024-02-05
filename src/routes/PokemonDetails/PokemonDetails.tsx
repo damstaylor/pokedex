@@ -26,6 +26,7 @@ const PokemonDetails = () => {
   const [details, setDetails] = useState<any>(null);
   const [speciesDetails, setSpeciesDetails] = useState<any>(null);
   const [evolutions, setEvolutions] = useState<Evolution[]>([]);
+  const pokemonName = details ? capitalCase(details.name) : '';
   const spritesObject = details ? details.sprites : null;
   const otherImagesObjects: ImageVariantsItem[] =
     spritesObject && spritesObject.other
@@ -196,7 +197,7 @@ const PokemonDetails = () => {
           {details ? (
             <>
               <h2>
-                {id && formatNumber(id)} {capitalCase(details.name)}
+                {id && formatNumber(id)} {pokemonName}
               </h2>
               <div className="pokemon-details__data-container">
                 <a className="arrow" onClick={navigateToPrevious}>
@@ -209,10 +210,12 @@ const PokemonDetails = () => {
                       <TypePill text={t.type.name} key={t.type.name} />
                     ))}
                   </div>
-                  <div className="pokemon-details__evolutions section">
+                  {evolutions && <div className="pokemon-details__evolutions section">
                     <h3>Evolutions</h3>
-                    {evolutions && <PokemonGrid items={formattedEvolutions} />}
-                  </div>
+                    {evolutions.length > 1
+                      ? <PokemonGrid items={formattedEvolutions} />
+                      : <div>{pokemonName} has no evolutions</div>}
+                  </div>}
                   <div className="pokemon-details__more-info section">
                     {speciesDetails && (
                       <div className="pokemon-details__species-details section">
