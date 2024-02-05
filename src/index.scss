@@ -1,6 +1,7 @@
 :root {
   --primary-text-color: #313131;
   --secondary-text-color: #fafafa;
+  --tertiary-text-color: #717171;
   --primary-bg-color: #ffffff;
   --secondary-bg-color: #313131;
   --primary-color: #3498db;
@@ -61,7 +62,9 @@ h1 {
 }
 
 h5 {
-  font-size: 0.75em;
+  color: var(--tertiary-text-color);
+  font-size: 0.7em;
+  font-weight: 600;
 }
 
 button {
