@@ -11,7 +11,7 @@ function App(): JSX.Element {
     const scrollTop = e?.target?.scrollTop;
     const newIsScrollingDown = scrollTop > previousScrollPosition;
     setIsScrollingDown(newIsScrollingDown);
-    setPreviousScrollPosition(e?.target?.scrollTop);
+    setPreviousScrollPosition(scrollTop);
   };
   return (
     <div className="app-container">
