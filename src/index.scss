@@ -1,7 +1,8 @@
 :root {
   --primary-text-color: #313131;
   --secondary-text-color: #fafafa;
-  --bg-color: #ffffff;
+  --primary-bg-color: #ffffff;
+  --secondary-bg-color: #313131;
   --primary-color: #3498db;
   --secondary-color: #ff5f44;
   --tertiary-color: #4caf50;
@@ -27,7 +28,7 @@
 
 body {
   color: var(--primary-text-color);
-  background-color: var(--bg-color);
+  background-color: var(--primary-bg-color);
   margin: 0;
   display: flex;
   place-items: center;
@@ -55,7 +56,7 @@ a {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2em;
   line-height: 1.1;
 }
 
@@ -85,6 +86,6 @@ button {
 @media (prefers-color-scheme: light) {
   :root {
     color: var(--primary-text-color);
-    background-color: var(--bg-color);
+    background-color: var(--primary-bg-color);
   }
 }

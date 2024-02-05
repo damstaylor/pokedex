@@ -6,9 +6,14 @@ import PokemonGrid from '../PokemonGrid/PokemonGrid';
 
 const { VITE_BASE_URL, VITE_IMG_BASE_URL } = import.meta.env;
 
-const PokemonList = () => {
+interface PokemonListProps {
+  handleScroll: Function;
+}
+
+const PokemonList = ({ handleScroll }: PokemonListProps) => {
   const [page, setPage] = useState(1);
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+  const headerHeight = document.getElementById('header')?.offsetHeight;
   const fetchPokemonData = async (page: number): Promise<Pokemon[]> => {
     const limit = 40;
     const offset = (page - 1) * limit;
@@ -43,7 +48,7 @@ const PokemonList = () => {
     fetchInitialPokemonData();
   }, []);
   return (
-    <div className="pokemon-list" id="scrollableDiv">
+    <div className="pokemon-list">
       <InfiniteScroll
         dataLength={pokemonList.length}
         next={loadMorePokemon}
@@ -51,10 +56,13 @@ const PokemonList = () => {
         loader={<Spinner />}
         endMessage={<p>No more Pokémon to load.</p>}
         scrollThreshold={1}
+        onScroll={(e: Event) => handleScroll(e)}
         // Necessary for triggering infinite scroll in component
-        height={'calc(100lvh - 88px)'}
+        height={'100lvh'}
       >
-        <PokemonGrid items={pokemonList} />
+        <div style={{paddingTop: headerHeight}}>
+          <PokemonGrid items={pokemonList} />
+        </div>
       </InfiniteScroll>
     </div>
   );

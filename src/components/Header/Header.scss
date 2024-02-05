@@ -1,0 +1,12 @@
+.header {
+  position: fixed;
+  top: 0;
+  color: var(--secondary-text-color);
+  background-color: var(--secondary-bg-color);
+  padding: 16px;
+  width: 100%;
+  
+  &.hide {
+    top: -100%;
+  }
+}
