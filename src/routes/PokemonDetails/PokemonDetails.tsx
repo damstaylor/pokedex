@@ -5,7 +5,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import fetchData from '@/services/fetchData.ts';
-import formatNumber from '@/utils/utils.ts';
+import { formatNumber, getIdFromUrl } from '@/utils/utils.ts';
 import ImageSlider from '@/components/ImageSlider/ImageSlider.tsx';
 import PokemonGrid from '@/components/PokemonGrid/PokemonGrid.tsx';
 import SpeciesDetails from '@/components/SpeciesDetails/SpeciesDetails.tsx';
@@ -153,9 +153,8 @@ const PokemonDetails = () => {
           evolutionChain.chain
         );
         const items = chainUrlsAndName.map((o) => {
-          const matches = o.url ? o.url.match(/\/(\d+)\/?$/) : [];
           return {
-            number: Number(matches ? matches[matches.length - 1] : -1),
+            number: o.url ? getIdFromUrl(o.url) : -1,
             name: o.name,
             url: o.url,
           };

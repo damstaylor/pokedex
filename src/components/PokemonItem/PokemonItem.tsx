@@ -1,5 +1,5 @@
 import './PokemonItem.scss';
-import formatNumber from '@/utils/utils.ts';
+import { formatNumber } from '@/utils/utils.ts';
 import { capitalCase } from 'change-case';
 
 interface PokemonItemProps {
