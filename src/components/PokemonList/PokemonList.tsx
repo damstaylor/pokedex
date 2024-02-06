@@ -13,15 +13,17 @@ interface PokemonListProps {
 const PokemonList = ({ handleScroll }: PokemonListProps) => {
   const [page, setPage] = useState(1);
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+  const [count, setCount] = useState(0);
   const headerHeight = document.getElementById('header')?.offsetHeight;
+  const limit = 100;
   const fetchPokemonData = async (page: number): Promise<Pokemon[]> => {
-    const limit = 40;
     const offset = (page - 1) * limit;
     try {
       const response = await fetch(
         `${VITE_BASE_URL}/pokemon/?limit=${limit}&offset=${offset}`
       );
       const data = await response.json();
+      setCount(data.count);
       const newItemList = data.results.map(
         (item: APIBaseItem, index: number) => ({
           name: item.name,
@@ -52,7 +54,7 @@ const PokemonList = ({ handleScroll }: PokemonListProps) => {
       <InfiniteScroll
         dataLength={pokemonList.length}
         next={loadMorePokemon}
-        hasMore={true}
+        hasMore={pokemonList.length < count}
         loader={<Spinner />}
         endMessage={<p>No more Pokémon to load.</p>}
         scrollThreshold={1}
