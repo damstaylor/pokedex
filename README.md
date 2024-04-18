@@ -1,3 +1,17 @@
+# Pokédex app
+
+<table>
+  <tr><img src="public/screenshots/desktop-1.png" alt="Desktop 1"></tr>
+  <tr><img src="public/screenshots/desktop-2.png" alt="Desktop 2"></tr>
+  <tr>
+    <td><img src="public/screenshots/mobile-1.png" alt="Mobile 1"></td>
+    <td><img src="public/screenshots/mobile-2.png" alt="Mobile 2"></td>
+    <td><img src="public/screenshots/mobile-3.png" alt="Mobile 3"></td>
+  </tr>
+</table>
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
