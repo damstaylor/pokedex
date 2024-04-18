@@ -116,17 +116,17 @@
     .image-slider {
       height: 320px;
     }
-  }
 
-  .pokemon-grid__content {
-    grid-template-columns: repeat(1, 150px) !important;
-  }
+    .pokemon-grid__content {
+      grid-template-columns: repeat(1, 150px);
+    }
 
-  .pokemon-details .pokemon-details__data-container a.arrow {
-    padding: 0 8px;
+    .pokemon-details__data-container a.arrow {
+      padding: 0 8px;
 
-    svg {
-      font-size: 32px;
+      svg {
+        font-size: 32px;
+      }
     }
   }
 }
