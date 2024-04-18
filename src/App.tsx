@@ -16,7 +16,10 @@ function App(): JSX.Element {
   return (
     <div className="app-container">
       <Header hidden={isScrollingDown}>
-        <h1>Pokédex</h1>
+        <div className="header-content">
+          <img alt="Pokéball" src="public/pokeball.png" className="pokeball-icon" />
+          <h1>Pokédex</h1>
+        </div>
       </Header>
       <main>
         <PokemonList handleScroll={handleScroll} />

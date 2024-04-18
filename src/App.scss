@@ -14,3 +14,15 @@
 main {
   overflow-y: auto;
 }
+
+.header-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pokeball-icon {
+  max-height: 32px;
+}
