@@ -5,8 +5,31 @@
 
   &__content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    justify-content: center;
     gap: 16px;
+    width: 100%;
     max-width: 840px;
+  }
+}
+
+@mixin pokemon-grid($columns) {
+  grid-template-columns: repeat(#{$columns}, 150px);
+}
+
+@media screen and (max-width: 1024px) {
+  .pokemon-grid__content {
+    @include pokemon-grid(4);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pokemon-grid__content {
+    @include pokemon-grid(3);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .pokemon-grid__content {
+    @include pokemon-grid(2);
   }
 }
