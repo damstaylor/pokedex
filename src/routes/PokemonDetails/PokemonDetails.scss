@@ -5,6 +5,7 @@
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
+  z-index: 1;
 
   .pokemon-details__container {
     position: fixed;

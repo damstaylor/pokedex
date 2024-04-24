@@ -5,7 +5,8 @@
   background-color: var(--secondary-bg-color);
   padding: 16px;
   width: 100%;
-  
+  z-index: 1;
+
   &.hide {
     top: -100%;
   }
