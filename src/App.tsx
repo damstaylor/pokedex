@@ -8,7 +8,7 @@ function App(): JSX.Element {
   const [previousScrollPosition, setPreviousScrollPosition] = useState(0);
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const handleScroll = (e: Event) => {
-    const scrollTop = e?.target?.scrollTop;
+    const scrollTop = (e.target as HTMLElement).scrollTop;
     const newIsScrollingDown = scrollTop > previousScrollPosition;
     setIsScrollingDown(newIsScrollingDown);
     setPreviousScrollPosition(scrollTop);
