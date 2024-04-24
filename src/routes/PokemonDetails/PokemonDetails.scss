@@ -113,6 +113,10 @@
 
 @media screen and (max-width: 1024px) {
   .pokemon-details {
+    .spinner-container {
+      height: 100%;
+    }
+
     .image-slider {
       height: 320px;
     }
