@@ -1,5 +1,7 @@
 # Pokédex app
 
+Try it [here](https://ds-react-pokedex.netlify.app)!
+
 <table>
   <tr><img src="public/screenshots/desktop-1.png" alt="Desktop 1"></tr>
   <tr><img src="public/screenshots/desktop-2.png" alt="Desktop 2"></tr>
